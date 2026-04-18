@@ -76,3 +76,5 @@ ShiftSwap is a specialized scheduling and shift swap portal for small and medium
 ## License
 
 This project is open-sourced under the MIT license.
+
+# shiftswap
