@@ -1,36 +1,33 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-theme="shiftswap">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ config('app.name', 'ShiftSwap') }}</title>
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&display=swap" rel="stylesheet"/>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+<body class="bg-base-200 font-sans antialiased">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+    <div class="drawer lg:drawer-open min-h-screen">
+        <input id="app-drawer" type="checkbox" class="drawer-toggle">
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @include('layouts.navigation')
-
-            <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endisset
-
-            <!-- Page Content -->
-            <main>
+        {{-- Page content --}}
+        <div class="drawer-content flex flex-col min-h-screen">
+            <x-app.topbar />
+            <main class="flex-1 p-6">
                 {{ $slot }}
             </main>
         </div>
-    </body>
+
+        {{-- Sidebar --}}
+        <div class="drawer-side z-40">
+            <label for="app-drawer" aria-label="Close sidebar" class="drawer-overlay"></label>
+            <x-app.sidebar />
+        </div>
+    </div>
+
+</body>
 </html>
