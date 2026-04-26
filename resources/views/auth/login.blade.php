@@ -4,8 +4,8 @@
 
             {{-- Header --}}
             <div>
-                <h1 class="text-2xl font-bold text-base-content">Welcome back</h1>
-                <p class="text-sm text-base-content/60 mt-1">Sign in to your ShiftSwap account</p>
+                <h1 class="text-2xl font-bold text-base-content">{{ __('Welcome back') }}</h1>
+                <p class="text-sm text-base-content/60 mt-1">{{ __('Sign in to your ShiftSwap account') }}</p>
             </div>
 
             <x-auth-session-status :status="session('status')" />
@@ -31,14 +31,7 @@
 
                 {{-- Password --}}
                 <div class="form-control gap-1.5">
-                    <div class="flex items-center justify-between">
-                        <x-input-label for="password" :value="__('Password')" />
-                        @if (Route::has('password.request'))
-                            <a href="{{ route('password.request') }}" class="text-xs text-primary hover:underline">
-                                Forgot password?
-                            </a>
-                        @endif
-                    </div>
+                    <x-input-label for="password" :value="__('Password')" />
                     <x-text-input
                         id="password"
                         type="password"
@@ -50,22 +43,31 @@
                     <x-input-error :messages="$errors->get('password')" />
                 </div>
 
+                <div class="flex items-center justify-between">
+                    <label class="label cursor-pointer justify-start gap-3 p-0">
+                        <input id="remember_me" type="checkbox" name="remember" class="checkbox checkbox-primary checkbox-sm" />
+                        <span class="label-text">{{ __('Remember me') }}</span>
+                    </label>
+                    @if (Route::has('password.request'))
+                        <a href="{{ route('password.request') }}" class="text-xs text-primary hover:underline">
+                            {{ __('Forgot your password?') }}
+                        </a>
+                    @endif
+                </div>
+                
                 {{-- Remember me --}}
-                <label class="label cursor-pointer justify-start gap-3 p-0">
-                    <input id="remember_me" type="checkbox" name="remember" class="checkbox checkbox-primary checkbox-sm" />
-                    <span class="label-text">Remember me</span>
-                </label>
+
 
                 <button type="submit" class="btn btn-primary w-full mt-2">
-                    Log In
+                    {{ __('Log in') }}
                 </button>
             </form>
 
             {{-- Register link --}}
             @if (Route::has('register'))
                 <p class="text-center text-sm text-base-content/60">
-                    Don't have an account?
-                    <a href="{{ route('register') }}" class="text-primary font-semibold hover:underline">Sign up</a>
+                    {{ __("Don't have an account?") }}
+                    <a href="{{ route('register') }}" class="text-primary font-semibold hover:underline">{{ __('Sign up') }}</a>
                 </p>
             @endif
 

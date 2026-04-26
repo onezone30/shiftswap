@@ -39,9 +39,7 @@ $navItems = [
     <div class="p-5 border-b border-base-300">
         <a href="{{ route('dashboard') }}" class="flex items-center gap-2.5">
             <img src="{{ asset('images/shiftswap_logo.jpg') }}" alt="ShiftSwap" class="w-9 h-9 rounded-lg">
-            <span class="text-lg font-extrabold">
-                <span class="text-primary">Shift</span><span class="text-secondary">Swap</span>
-            </span>
+            <x-brand-title />
         </a>
     </div>
 

@@ -3,9 +3,7 @@
     {{-- Logo --}}
     <a href="{{ route('dashboard') }}" class="flex items-center gap-2">
         <img src="{{ asset('images/shiftswap_logo.jpg') }}" alt="ShiftSwap" class="w-8 h-8 rounded-lg">
-        <span class="font-extrabold text-base">
-            <span class="text-primary">Shift</span><span class="text-secondary">Swap</span>
-        </span>
+        <x-brand-title size="text-base" />
     </a>
 
     {{-- Hamburger --}}

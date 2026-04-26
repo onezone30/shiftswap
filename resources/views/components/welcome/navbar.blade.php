@@ -2,9 +2,7 @@
     <div class="navbar-start">
         <a href="/" class="flex items-center gap-2">
             <img src="{{ asset('images/shiftswap_logo.jpg') }}" alt="ShiftSwap Logo" class="w-16 h-16">
-            <span class="text-xl font-bold">
-                <span class="text-primary">Shift</span><span class="text-secondary">Swap</span>
-            </span>
+            <x-brand-title size="text-xl" />
         </a>
     </div>
 

@@ -4,9 +4,9 @@
 
             {{-- Header --}}
             <div>
-                <h1 class="text-2xl font-bold text-base-content">Reset your password</h1>
+                <h1 class="text-2xl font-bold text-base-content">{{ __('Reset your password') }}</h1>
                 <p class="text-sm text-base-content/60 mt-1">
-                    Enter your email and we'll send you a reset link.
+                    {{ __('Enter your email and we\'ll send you a reset link.') }}
                 </p>
             </div>
 
@@ -31,13 +31,13 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary w-full mt-2">
-                    Send Reset Link
+                    {{ __('Send Reset Link') }}
                 </button>
             </form>
 
             <p class="text-center text-sm text-base-content/60">
-                Remembered it?
-                <a href="{{ route('login') }}" class="text-primary font-semibold hover:underline">Back to login</a>
+                {{ __('Remembered it?') }}
+                <a href="{{ route('login') }}" class="text-primary font-semibold hover:underline">{{ __('Back to login') }}</a>
             </p>
 
         </div>
