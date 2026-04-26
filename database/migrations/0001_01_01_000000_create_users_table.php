@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignIdFor(Position::class)->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->string('email')->unique();
+            $table->enum('role', ['admin', 'manager', 'employee'])->default('employee');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

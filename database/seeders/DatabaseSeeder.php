@@ -72,10 +72,20 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Users
+        User::create([
+            'name' => 'System Admin',
+            'email' => 'admin@example.com',
+            'password' => bcrypt('password'),
+            'role' => 'admin',
+            'branch_id' => $bayanan->id,
+            'position_id' => $managerPos->id,
+        ]);
+
         $manager = User::create([
             'name' => 'Maria Lourdes Ramos',
             'email' => 'maria.ramos@example.com',
             'password' => bcrypt('password'),
+            'role' => 'manager',
             'branch_id' => $putatan->id,
             'position_id' => $managerPos->id,
         ]);
@@ -84,6 +94,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Alice Santos',
             'email' => 'alice@example.com',
             'password' => bcrypt('password'),
+            'role' => 'employee',
             'branch_id' => $putatan->id,
             'position_id' => $cashier->id,
         ]);
@@ -92,6 +103,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Bob Dela Cruz',
             'email' => 'bob@example.com',
             'password' => bcrypt('password'),
+            'role' => 'employee',
             'branch_id' => $putatan->id,
             'position_id' => $cashier->id,
         ]);
@@ -100,6 +112,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Charlie Reyes',
             'email' => 'charlie@example.com',
             'password' => bcrypt('password'),
+            'role' => 'employee',
             'branch_id' => $putatan->id,
             'position_id' => $bagger->id,
         ]);

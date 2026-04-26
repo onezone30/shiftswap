@@ -10,12 +10,46 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'password', 'branch_id', 'position_id'])]
+/**
+ * @property int    $id
+ * @property string $name
+ * @property string $email
+ * @property string $role
+ * @property int    $branch_id
+ * @property int    $position_id
+ */
+#[Fillable(['name', 'email', 'password', 'branch_id', 'position_id', 'role'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
+
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_MANAGER = 'manager';
+    public const ROLE_EMPLOYEE = 'employee';
+
+    protected $with = ['branch', 'position'];
+
+    public function isAdmin(): bool
+    {
+        return $this->role === self::ROLE_ADMIN;
+    }
+
+    public function isManager(): bool
+    {
+        return $this->role === self::ROLE_MANAGER;
+    }
+
+    public function isEmployee(): bool
+    {
+        return $this->role === self::ROLE_EMPLOYEE;
+    }
+
+    public function hasRole(string|array $roles): bool
+    {
+        return \in_array($this->role, (array) $roles);
+    }
 
     public function branch()
     {
@@ -47,12 +81,6 @@ class User extends Authenticatable
         return $this->hasMany(ShiftSwap::class, 'reviewed_by');
     }
 
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
