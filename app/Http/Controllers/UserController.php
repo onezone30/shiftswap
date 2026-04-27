@@ -5,14 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 class UserController extends Controller
 {
-    public function index(): AnonymousResourceCollection
+    public function index(): View
     {
-        return UserResource::collection(User::all());
+        $users = User::all();
+
+        return view('users.index', compact('users'));
     }
 
     public function store(Request $request): UserResource
