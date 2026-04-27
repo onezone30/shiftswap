@@ -7,9 +7,7 @@
             <p class="text-sm text-base-content/50 mt-0.5">{{ now()->format('l, F j, Y') }}</p>
         </div>
         <button class="btn btn-primary btn-sm gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
-            </svg>
+            <x-heroicon-o-plus class="h-4 w-4" />
             New Schedule
         </button>
     </div>
@@ -22,9 +20,7 @@
                 <div class="flex items-center justify-between mb-3">
                     <span class="text-sm text-base-content/60">Total Staff</span>
                     <div class="w-9 h-9 bg-primary/10 rounded-lg flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
-                        </svg>
+                        <x-heroicon-o-user-group class="h-4 w-4 text-primary" />
                     </div>
                 </div>
                 <p class="text-3xl font-bold text-base-content">24</p>
@@ -37,9 +33,7 @@
                 <div class="flex items-center justify-between mb-3">
                     <span class="text-sm text-base-content/60">Active Shifts</span>
                     <div class="w-9 h-9 bg-success/10 rounded-lg flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                        </svg>
+                        <x-heroicon-o-calendar class="h-4 w-4 text-success" />
                     </div>
                 </div>
                 <p class="text-3xl font-bold text-base-content">8</p>
@@ -52,9 +46,7 @@
                 <div class="flex items-center justify-between mb-3">
                     <span class="text-sm text-base-content/60">Pending Swaps</span>
                     <div class="w-9 h-9 bg-warning/10 rounded-lg flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-warning" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
-                        </svg>
+                        <x-heroicon-o-arrows-right-left class="h-4 w-4 text-warning" />
                     </div>
                 </div>
                 <p class="text-3xl font-bold text-base-content">3</p>
@@ -67,9 +59,7 @@
                 <div class="flex items-center justify-between mb-3">
                     <span class="text-sm text-base-content/60">Branches</span>
                     <div class="w-9 h-9 bg-secondary/10 rounded-lg flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-                        </svg>
+                        <x-heroicon-o-building-storefront class="h-4 w-4 text-secondary" />
                     </div>
                 </div>
                 <p class="text-3xl font-bold text-base-content">4</p>
