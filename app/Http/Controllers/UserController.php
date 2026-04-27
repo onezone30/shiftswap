@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Enums\Role;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class UserController extends Controller
@@ -81,10 +81,16 @@ class UserController extends Controller
         return new UserResource($user->fresh());
     }
 
-    public function destroy(User $user): Response
+    public function destroy(User $user): RedirectResponse
     {
-        $user->delete();
+        $name     = $user->name;
+        $redirect = redirect()->route('users.index');
 
-        return response()->noContent();
+        try {
+            $user->delete();
+            return $redirect->with('success', "User \"{$name}\" was deleted.");
+        } catch (\Exception) {
+            return $redirect->with('error', "Could not delete \"{$name}\". They may have related records.");
+        }
     }
 }

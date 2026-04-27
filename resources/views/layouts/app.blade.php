@@ -30,5 +30,29 @@
         </div>
     </div>
 
+    {{-- Flash toast --}}
+    @if (session('success') || session('error'))
+        <div x-data="{ show: true }"
+             x-show="show"
+             x-init="setTimeout(() => show = false, 4000)"
+             x-transition:leave="transition ease-in duration-300"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 translate-y-2"
+             class="toast toast-top toast-end z-50 mt-4 mr-4">
+            @if (session('success'))
+                <div class="alert alert-success shadow-lg">
+                    <x-heroicon-o-check-circle class="h-5 w-5 shrink-0" />
+                    <span>{{ session('success') }}</span>
+                </div>
+            @endif
+            @if (session('error'))
+                <div class="alert alert-error shadow-lg">
+                    <x-heroicon-o-x-circle class="h-5 w-5 shrink-0" />
+                    <span>{{ session('error') }}</span>
+                </div>
+            @endif
+        </div>
+    @endif
+
 </body>
 </html>

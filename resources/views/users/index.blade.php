@@ -1,4 +1,5 @@
 <x-app-layout>
+<div x-data="{ confirmAction: '', deleteTarget: { name: '' } }">
 
     {{-- Page header --}}
     <div class="flex items-center justify-between mb-6">
@@ -179,7 +180,10 @@
                                     <button class="btn btn-ghost btn-xs text-base-content/40 hover:text-base-content" title="Edit">
                                         <x-heroicon-o-pencil-square class="h-4 w-4" />
                                     </button>
-                                    <button class="btn btn-ghost btn-xs text-error/40 hover:text-error" title="Delete">
+                                    <button
+                                        class="btn btn-ghost btn-xs text-error/40 hover:text-error"
+                                        title="Delete"
+                                        @click="confirmAction = '{{ route('users.destroy', $user) }}'; deleteTarget.name = '{{ addslashes($user->name) }}'; $refs.confirmModal.showModal()">
                                         <x-heroicon-o-trash class="h-4 w-4" />
                                     </button>
                                 </div>
@@ -209,4 +213,11 @@
 
     </div>
 
+    {{-- Delete confirmation modal --}}
+    <x-confirm-modal title="Delete user?" action-label="Delete">
+        You are about to delete <span class="font-medium text-base-content" x-text="deleteTarget.name"></span>.
+        This action cannot be undone.
+    </x-confirm-modal>
+
+</div>
 </x-app-layout>
