@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Enums\Role;
 use App\Http\Resources\UserResource;
+use App\Models\Branch;
+use App\Models\Position;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 class UserController extends Controller
@@ -44,7 +47,16 @@ class UserController extends Controller
         return view('users.index', compact('users', 'roleCounts', 'totalUsers', 'branches', 'roles'));
     }
 
-    public function store(Request $request): UserResource
+    public function create(): View
+    {
+        $branches  = Branch::orderBy('name')->get();
+        $positions = Position::where('is_active', true)->orderBy('name')->get();
+        $roles     = Role::cases();
+
+        return view('users.create', compact('branches', 'positions', 'roles'));
+    }
+
+    public function store(Request $request): RedirectResponse
     {
         $data = $request->validate([
             'name'        => 'required|string|max:255',
@@ -52,12 +64,12 @@ class UserController extends Controller
             'password'    => 'required|string|min:8|confirmed',
             'branch_id'   => 'required|exists:branches,id',
             'position_id' => 'required|exists:positions,id',
-            'role'        => ['required', \Illuminate\Validation\Rule::enum(Role::class)],
+            'role'        => ['required', Rule::enum(Role::class)],
         ]);
 
-        $user = User::create($data);
+        User::create($data);
 
-        return new UserResource($user);
+        return redirect()->route('users.index')->with('success', 'User created successfully.');
     }
 
     public function show(User $user): UserResource

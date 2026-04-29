@@ -13,10 +13,10 @@
                 @endif
             </p>
         </div>
-        <button class="btn btn-primary btn-sm gap-2">
+        <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm gap-2">
             <x-heroicon-o-plus class="h-4 w-4" />
             Add User
-        </button>
+        </a>
     </div>
 
     {{-- Summary cards --}}
