@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\Role;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -14,8 +15,7 @@ use Illuminate\Notifications\Notifiable;
  * @property int    $id
  * @property string $name
  * @property string $email
- * @property string $role
- * @property int    $branch_id
+ * @property Role   $role
  * @property int    $position_id
  */
 #[Fillable(['name', 'email', 'phone', 'password', 'position_id', 'role', 'employment_type', 'hired_at'])]
@@ -25,30 +25,26 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
-    public const ROLE_ADMIN = 'admin';
-    public const ROLE_MANAGER = 'manager';
-    public const ROLE_EMPLOYEE = 'employee';
-
     protected $with = ['branches', 'position'];
 
     public function isAdmin(): bool
     {
-        return $this->role === self::ROLE_ADMIN;
+        return $this->role === Role::Admin;
     }
 
     public function isManager(): bool
     {
-        return $this->role === self::ROLE_MANAGER;
+        return $this->role === Role::Manager;
     }
 
     public function isEmployee(): bool
     {
-        return $this->role === self::ROLE_EMPLOYEE;
+        return $this->role === Role::Employee;
     }
 
     public function hasRole(string|array $roles): bool
     {
-        return \in_array($this->role, (array) $roles);
+        return in_array($this->role->value, (array) $roles);
     }
 
     public function branches()
@@ -87,6 +83,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'hired_at'          => 'date',
             'password'          => 'hashed',
+            'role'              => Role::class,
             'employment_type'   => \App\Enums\EmploymentType::class,
         ];
     }

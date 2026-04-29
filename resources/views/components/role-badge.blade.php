@@ -1,12 +1,13 @@
 @props(['role'])
 
 @php
-$config = match ($role) {
-    'admin'    => ['class' => 'badge-error',   'label' => 'Admin'],
-    'manager'  => ['class' => 'badge-warning', 'label' => 'Manager'],
-    'employee' => ['class' => 'badge-success', 'label' => 'Employee'],
-    default    => ['class' => 'badge-ghost',   'label' => ucfirst($role)],
+use App\Enums\Role;
+$class = match ($role) {
+    Role::Admin    => 'badge-error',
+    Role::Manager  => 'badge-warning',
+    Role::Employee => 'badge-success',
+    default        => 'badge-ghost',
 };
 @endphp
 
-<span class="badge badge-sm {{ $config['class'] }}">{{ $config['label'] }}</span>
+<span class="badge badge-sm {{ $class }}">{{ $role->label() }}</span>
