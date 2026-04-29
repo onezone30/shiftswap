@@ -18,7 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/schedule',    fn() => view('schedule.index'))->name('schedule.index');
     Route::get('/shift-swaps', fn() => view('shift-swaps.index'))->name('shift-swaps.index');
     Route::get('/staff',       fn() => view('staff.index'))->name('staff.index');
-    Route::get('/branches',   [\App\Http\Controllers\BranchController::class,  'index'])->name('branches.index');
+    Route::resource('branches',  \App\Http\Controllers\BranchController::class);
     Route::resource('positions', \App\Http\Controllers\PositionController::class);
     Route::get('/reports',     fn() => view('reports.index'))->name('reports.index');
 });

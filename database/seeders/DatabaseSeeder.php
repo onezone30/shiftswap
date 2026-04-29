@@ -19,26 +19,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Branches
+        // Branches (managers assigned after users are created)
         $bayanan = Branch::create([
-            'name' => 'Bayanan',
+            'name'    => 'Bayanan',
             'address' => 'Bayanan, Muntinlupa',
-            'manager_name' => 'Manager Bayanan',
         ]);
 
         $putatan = Branch::create([
-            'name' => 'Putatan',
+            'name'    => 'Putatan',
             'address' => '65 National Road, Putatan, Muntinlupa',
-            'manager_name' => 'Maria Lourdes Ramos',
         ]);
 
         $poblacion = Branch::create([
-            'name' => 'Poblacion',
+            'name'    => 'Poblacion',
             'address' => 'Poblacion address',
         ]);
 
         $sanPedro = Branch::create([
-            'name' => 'San Pedro',
+            'name'    => 'San Pedro',
             'address' => 'San Pedro address',
         ]);
 
@@ -101,6 +99,7 @@ class DatabaseSeeder extends Seeder
             'hired_at'        => '2023-03-15',
         ]);
         $manager->branches()->attach($putatan->id);
+        $putatan->update(['manager_id' => $manager->id]);
 
         $alice = User::create([
             'name'            => 'Alice Santos',

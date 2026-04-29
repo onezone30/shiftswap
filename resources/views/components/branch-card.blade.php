@@ -33,12 +33,12 @@
         </div>
 
         {{-- Info rows --}}
-        @if ($branch->phone || $branch->email || $branch->manager_name)
+        @if ($branch->phone || $branch->email || $branch->manager)
             <div class="space-y-2 text-sm text-base-content/60">
-                @if ($branch->manager_name)
+                @if ($branch->manager)
                     <div class="flex items-center gap-2">
                         <x-heroicon-o-user-circle class="h-3.5 w-3.5 shrink-0 text-base-content/30" />
-                        <span class="truncate">{{ $branch->manager_name }}</span>
+                        <span class="truncate">{{ $branch->manager->name }}</span>
                     </div>
                 @endif
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,7 +18,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
-            $table->string('manager_name')->nullable();
+            $table->foreignIdFor(User::class, 'manager_id')->nullable()->constrained()->nullOnDelete();
             $table->string('notes', 512)->nullable();
             $table->timestamps();
         });
