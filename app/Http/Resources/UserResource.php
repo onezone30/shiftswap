@@ -18,10 +18,9 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'branch'   => $this->whenLoaded('branch', fn() => [
-                'id'   => $this->branch->id,
-                'name' => $this->branch->name,
-            ]),
+            'branches' => $this->whenLoaded('branches', fn() =>
+                $this->branches->map(fn($b) => ['id' => $b->id, 'name' => $b->name])
+            ),
             'position' => $this->whenLoaded('position', fn() => [
                 'id'   => $this->position->id,
                 'name' => $this->position->name,

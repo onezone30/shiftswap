@@ -18,7 +18,7 @@ use Illuminate\Notifications\Notifiable;
  * @property int    $branch_id
  * @property int    $position_id
  */
-#[Fillable(['name', 'email', 'password', 'branch_id', 'position_id', 'role'])]
+#[Fillable(['name', 'email', 'password', 'position_id', 'role'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -29,7 +29,7 @@ class User extends Authenticatable
     public const ROLE_MANAGER = 'manager';
     public const ROLE_EMPLOYEE = 'employee';
 
-    protected $with = ['branch', 'position'];
+    protected $with = ['branches', 'position'];
 
     public function isAdmin(): bool
     {
@@ -51,9 +51,9 @@ class User extends Authenticatable
         return \in_array($this->role, (array) $roles);
     }
 
-    public function branch()
+    public function branches()
     {
-        return $this->belongsTo(Branch::class);
+        return $this->belongsToMany(Branch::class);
     }
 
     public function position()

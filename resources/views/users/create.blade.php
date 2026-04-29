@@ -103,51 +103,13 @@
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
-                        {{-- Branch --}}
-                        <div class="form-control gap-1.5">
-                            <label class="label py-0" for="branch_id">
-                                <span class="label-text font-medium">Branch <span class="text-error">*</span></span>
-                            </label>
-                            <select id="branch_id" name="branch_id"
-                                    class="select select-bordered select-sm @error('branch_id') select-error @enderror">
-                                <option value="" disabled @selected(!old('branch_id'))>Select a branch</option>
-                                @foreach ($branches as $branch)
-                                    <option value="{{ $branch->id }}" @selected(old('branch_id') == $branch->id)>
-                                        {{ $branch->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('branch_id')
-                                <span class="text-xs text-error">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        {{-- Position --}}
-                        <div class="form-control gap-1.5">
-                            <label class="label py-0" for="position_id">
-                                <span class="label-text font-medium">Position <span class="text-error">*</span></span>
-                            </label>
-                            <select id="position_id" name="position_id"
-                                    class="select select-bordered select-sm @error('position_id') select-error @enderror">
-                                <option value="" disabled @selected(!old('position_id'))>Select a position</option>
-                                @foreach ($positions as $position)
-                                    <option value="{{ $position->id }}" @selected(old('position_id') == $position->id)>
-                                        {{ $position->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('position_id')
-                                <span class="text-xs text-error">{{ $message }}</span>
-                            @enderror
-                        </div>
-
                         {{-- Role --}}
                         <div class="form-control gap-1.5">
                             <label class="label py-0" for="role">
                                 <span class="label-text font-medium">Role <span class="text-error">*</span></span>
                             </label>
                             <select id="role" name="role"
-                                    class="select select-bordered select-sm @error('role') select-error @enderror">
+                                    class="w-full h-9 px-3 pr-8 text-sm text-base-content bg-base-100 border rounded-lg cursor-pointer focus:outline-none focus:border-primary transition-colors {{ $errors->has('role') ? 'border-error' : 'border-base-300' }}">
                                 <option value="" disabled @selected(!old('role'))>Select a role</option>
                                 @foreach ($roles as $role)
                                     <option value="{{ $role->value }}" @selected(old('role') === $role->value)>
@@ -160,7 +122,53 @@
                             @enderror
                         </div>
 
+                        {{-- Position --}}
+                        <div class="form-control gap-1.5">
+                            <label class="label py-0" for="position_id">
+                                <span class="label-text font-medium">Position <span class="text-error">*</span></span>
+                            </label>
+                            <select id="position_id" name="position_id"
+                                    class="w-full h-9 px-3 pr-8 text-sm text-base-content bg-base-100 border rounded-lg cursor-pointer focus:outline-none focus:border-primary transition-colors {{ $errors->has('position_id') ? 'border-error' : 'border-base-300' }}">
+                                <option value="" disabled @selected(!old('position_id'))>Select a position</option>
+                                @foreach ($positions as $position)
+                                    <option value="{{ $position->id }}" @selected(old('position_id') == $position->id)>
+                                        {{ $position->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('position_id')
+                                <span class="text-xs text-error">{{ $message }}</span>
+                            @enderror
+                        </div>
+
                     </div>
+
+                    {{-- Branch --}}
+                    <div class="form-control gap-2">
+                        <span class="label-text font-medium">
+                            Branch <span class="text-error">*</span>
+                            <span class="text-base-content/40 font-normal ml-1">(select all that apply)</span>
+                        </span>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            @foreach ($branches as $branch)
+                                @php $checked = in_array($branch->id, old('branch_ids', [])); @endphp
+                                <label class="flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors
+                                              {{ $checked ? 'border-primary bg-primary/5' : 'border-base-300 hover:border-primary/50 hover:bg-base-200/50' }}">
+                                    <input type="checkbox" name="branch_ids[]" value="{{ $branch->id }}"
+                                           class="checkbox checkbox-primary checkbox-sm"
+                                           @checked($checked) />
+                                    <div class="min-w-0">
+                                        <p class="text-sm font-medium text-base-content leading-tight">{{ $branch->name }}</p>
+                                        <p class="text-xs text-base-content/50 truncate">{{ $branch->address }}</p>
+                                    </div>
+                                </label>
+                            @endforeach
+                        </div>
+                        @error('branch_ids')
+                            <span class="text-xs text-error">{{ $message }}</span>
+                        @enderror
+                    </div>
+
                 </div>
             </div>
 

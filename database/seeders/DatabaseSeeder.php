@@ -72,50 +72,51 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Users
-        User::create([
-            'name' => 'System Admin',
-            'email' => 'admin@example.com',
-            'password' => bcrypt('password'),
-            'role' => 'admin',
-            'branch_id' => $bayanan->id,
+        $admin = User::create([
+            'name'        => 'System Admin',
+            'email'       => 'admin@example.com',
+            'password'    => bcrypt('password'),
+            'role'        => 'admin',
             'position_id' => $managerPos->id,
         ]);
+        // Admin oversees all branches
+        $admin->branches()->attach([$bayanan->id, $putatan->id, $poblacion->id, $sanPedro->id]);
 
         $manager = User::create([
-            'name' => 'Maria Lourdes Ramos',
-            'email' => 'maria.ramos@example.com',
-            'password' => bcrypt('password'),
-            'role' => 'manager',
-            'branch_id' => $putatan->id,
+            'name'        => 'Maria Lourdes Ramos',
+            'email'       => 'maria.ramos@example.com',
+            'password'    => bcrypt('password'),
+            'role'        => 'manager',
             'position_id' => $managerPos->id,
         ]);
+        $manager->branches()->attach($putatan->id);
 
         $alice = User::create([
-            'name' => 'Alice Santos',
-            'email' => 'alice@example.com',
-            'password' => bcrypt('password'),
-            'role' => 'employee',
-            'branch_id' => $putatan->id,
+            'name'        => 'Alice Santos',
+            'email'       => 'alice@example.com',
+            'password'    => bcrypt('password'),
+            'role'        => 'employee',
             'position_id' => $cashier->id,
         ]);
+        $alice->branches()->attach($putatan->id);
 
         $bob = User::create([
-            'name' => 'Bob Dela Cruz',
-            'email' => 'bob@example.com',
-            'password' => bcrypt('password'),
-            'role' => 'employee',
-            'branch_id' => $putatan->id,
+            'name'        => 'Bob Dela Cruz',
+            'email'       => 'bob@example.com',
+            'password'    => bcrypt('password'),
+            'role'        => 'employee',
             'position_id' => $cashier->id,
         ]);
+        $bob->branches()->attach($putatan->id);
 
         $charlie = User::create([
-            'name' => 'Charlie Reyes',
-            'email' => 'charlie@example.com',
-            'password' => bcrypt('password'),
-            'role' => 'employee',
-            'branch_id' => $putatan->id,
+            'name'        => 'Charlie Reyes',
+            'email'       => 'charlie@example.com',
+            'password'    => bcrypt('password'),
+            'role'        => 'employee',
             'position_id' => $bagger->id,
         ]);
+        $charlie->branches()->attach($putatan->id);
 
         // Shifts (dated assignments)
         $shift1 = Shift::create([

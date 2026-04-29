@@ -157,9 +157,13 @@
 
                             {{-- Branch --}}
                             <td class="py-3">
-                                <div class="flex items-center gap-1.5 text-sm text-base-content/70">
-                                    <x-heroicon-o-map-pin class="h-3.5 w-3.5 text-base-content/40 shrink-0" />
-                                    {{ $user->branch->name }}
+                                <div class="flex flex-wrap items-center gap-1">
+                                    @foreach ($user->branches as $branch)
+                                        <span class="badge badge-ghost badge-sm gap-1">
+                                            <x-heroicon-o-map-pin class="h-3 w-3" />
+                                            {{ $branch->name }}
+                                        </span>
+                                    @endforeach
                                 </div>
                             </td>
 

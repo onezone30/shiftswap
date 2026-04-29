@@ -22,7 +22,7 @@ class UserController extends Controller
             ->groupBy('role')
             ->pluck('count', 'role');
 
-        $branches = User::with('branch')->get()->pluck('branch.name')->unique()->sort()->values();
+        $branches = Branch::orderBy('name')->pluck('name');
 
         $users = User::query()
             ->when($request->filled('search'), fn($q) =>
@@ -35,7 +35,7 @@ class UserController extends Controller
                 $q->where('role', $request->role)
             )
             ->when($request->filled('branch'), fn($q) =>
-                $q->whereHas('branch', fn($q) =>
+                $q->whereHas('branches', fn($q) =>
                     $q->where('name', $request->branch)
                 )
             )
@@ -59,15 +59,17 @@ class UserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $data = $request->validate([
-            'name'        => 'required|string|max:255',
-            'email'       => 'required|email|max:255|unique:users',
-            'password'    => 'required|string|min:8|confirmed',
-            'branch_id'   => 'required|exists:branches,id',
-            'position_id' => 'required|exists:positions,id',
-            'role'        => ['required', Rule::enum(Role::class)],
+            'name'         => 'required|string|max:255',
+            'email'        => 'required|email|max:255|unique:users',
+            'password'     => 'required|string|min:8|confirmed',
+            'branch_ids'   => 'required|array|min:1',
+            'branch_ids.*' => 'exists:branches,id',
+            'position_id'  => 'required|exists:positions,id',
+            'role'         => ['required', Rule::enum(Role::class)],
         ]);
 
-        User::create($data);
+        $user = User::create($data);
+        $user->branches()->sync($data['branch_ids']);
 
         return redirect()->route('users.index')->with('success', 'User created successfully.');
     }
@@ -83,7 +85,8 @@ class UserController extends Controller
             'name'        => 'sometimes|required|string|max:255',
             'email'       => "sometimes|required|email|max:255|unique:users,email,{$user->id}",
             'password'    => 'sometimes|required|string|min:8|confirmed',
-            'branch_id'   => 'sometimes|required|exists:branches,id',
+            'branch_ids'   => 'sometimes|array|min:1',
+            'branch_ids.*' => 'exists:branches,id',
             'position_id' => 'sometimes|required|exists:positions,id',
             'role'        => 'sometimes|required|in:admin,manager,employee',
         ]);
