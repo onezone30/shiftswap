@@ -9,6 +9,7 @@ $navItems = collect([
     ['label' => 'Shift Swaps', 'route' => 'shift-swaps.index','icon' => 'arrows-right-left'],
     ['label' => 'Staff',       'route' => 'staff.index',      'icon' => 'user-group'],
     ['label' => 'Branches',    'route' => 'branches.index',   'icon' => 'building-storefront'],
+    ['label' => 'Positions',   'route' => 'positions.index',  'icon' => 'briefcase'],
     ['label' => 'Users',       'route' => 'users.index',      'icon' => 'users'],
     ['label' => 'Reports',     'route' => 'reports.index',    'icon' => 'chart-bar'],
 ])
