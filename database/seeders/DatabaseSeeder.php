@@ -43,11 +43,18 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Positions
+        $adminPos = Position::create([
+            'name'        => 'Admin',
+            'slug'        => 'admin',
+            'description' => 'System administrator',
+            'is_active'   => true,
+        ]);
+
         $managerPos = Position::create([
-            'name' => 'Manager',
-            'slug' => 'manager',
+            'name'        => 'Manager',
+            'slug'        => 'manager',
             'description' => 'Branch manager',
-            'is_active' => true,
+            'is_active'   => true,
         ]);
 
         $cashier = Position::create([
@@ -73,48 +80,60 @@ class DatabaseSeeder extends Seeder
 
         // Users
         $admin = User::create([
-            'name'        => 'System Admin',
-            'email'       => 'admin@example.com',
-            'password'    => bcrypt('password'),
-            'role'        => 'admin',
-            'position_id' => $managerPos->id,
+            'name'            => 'System Admin',
+            'email'           => 'admin@example.com',
+            'password'        => bcrypt('password'),
+            'role'            => 'admin',
+            'position_id'     => $adminPos->id,
+            'employment_type' => 'full-time',
+            'hired_at'        => '2023-01-01',
         ]);
-        // Admin oversees all branches
         $admin->branches()->attach([$bayanan->id, $putatan->id, $poblacion->id, $sanPedro->id]);
 
         $manager = User::create([
-            'name'        => 'Maria Lourdes Ramos',
-            'email'       => 'maria.ramos@example.com',
-            'password'    => bcrypt('password'),
-            'role'        => 'manager',
-            'position_id' => $managerPos->id,
+            'name'            => 'Maria Lourdes Ramos',
+            'email'           => 'maria.ramos@example.com',
+            'phone'           => '09171234567',
+            'password'        => bcrypt('password'),
+            'role'            => 'manager',
+            'position_id'     => $managerPos->id,
+            'employment_type' => 'full-time',
+            'hired_at'        => '2023-03-15',
         ]);
         $manager->branches()->attach($putatan->id);
 
         $alice = User::create([
-            'name'        => 'Alice Santos',
-            'email'       => 'alice@example.com',
-            'password'    => bcrypt('password'),
-            'role'        => 'employee',
-            'position_id' => $cashier->id,
+            'name'            => 'Alice Santos',
+            'email'           => 'alice@example.com',
+            'phone'           => '09189876543',
+            'password'        => bcrypt('password'),
+            'role'            => 'employee',
+            'position_id'     => $cashier->id,
+            'employment_type' => 'full-time',
+            'hired_at'        => '2024-06-01',
         ]);
         $alice->branches()->attach($putatan->id);
 
         $bob = User::create([
-            'name'        => 'Bob Dela Cruz',
-            'email'       => 'bob@example.com',
-            'password'    => bcrypt('password'),
-            'role'        => 'employee',
-            'position_id' => $cashier->id,
+            'name'            => 'Bob Dela Cruz',
+            'email'           => 'bob@example.com',
+            'phone'           => '09201112233',
+            'password'        => bcrypt('password'),
+            'role'            => 'employee',
+            'position_id'     => $cashier->id,
+            'employment_type' => 'part-time',
+            'hired_at'        => '2024-09-10',
         ]);
         $bob->branches()->attach($putatan->id);
 
         $charlie = User::create([
-            'name'        => 'Charlie Reyes',
-            'email'       => 'charlie@example.com',
-            'password'    => bcrypt('password'),
-            'role'        => 'employee',
-            'position_id' => $bagger->id,
+            'name'            => 'Charlie Reyes',
+            'email'           => 'charlie@example.com',
+            'password'        => bcrypt('password'),
+            'role'            => 'employee',
+            'position_id'     => $bagger->id,
+            'employment_type' => 'casual',
+            'hired_at'        => '2025-01-20',
         ]);
         $charlie->branches()->attach($putatan->id);
 

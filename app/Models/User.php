@@ -18,7 +18,7 @@ use Illuminate\Notifications\Notifiable;
  * @property int    $branch_id
  * @property int    $position_id
  */
-#[Fillable(['name', 'email', 'password', 'position_id', 'role'])]
+#[Fillable(['name', 'email', 'phone', 'password', 'position_id', 'role', 'employment_type', 'hired_at'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -85,7 +85,9 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'hired_at'          => 'date',
+            'password'          => 'hashed',
+            'employment_type'   => \App\Enums\EmploymentType::class,
         ];
     }
 }

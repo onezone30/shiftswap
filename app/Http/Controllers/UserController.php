@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\EmploymentType;
 use App\Enums\Role;
 use App\Http\Resources\UserResource;
 use App\Models\Branch;
@@ -49,23 +50,34 @@ class UserController extends Controller
 
     public function create(): View
     {
-        $branches  = Branch::orderBy('name')->get();
-        $positions = Position::where('is_active', true)->orderBy('name')->get();
-        $roles     = Role::cases();
+        $branches          = Branch::orderBy('name')->get();
+        $adminPosition     = Position::where('slug', 'admin')->first();
+        $managerPosition   = Position::where('slug', 'manager')->first();
+        $employeePositions = Position::where('is_active', true)
+            ->whereNotIn('slug', ['admin', 'manager'])
+            ->orderBy('name')
+            ->get();
+        $roles           = Role::cases();
+        $employmentTypes = EmploymentType::cases();
 
-        return view('users.create', compact('branches', 'positions', 'roles'));
+        return view('users.create', compact(
+            'branches', 'adminPosition', 'managerPosition', 'employeePositions', 'roles', 'employmentTypes'
+        ));
     }
 
     public function store(Request $request): RedirectResponse
     {
         $data = $request->validate([
-            'name'         => 'required|string|max:255',
-            'email'        => 'required|email|max:255|unique:users',
-            'password'     => 'required|string|min:8|confirmed',
-            'branch_ids'   => 'required|array|min:1',
-            'branch_ids.*' => 'exists:branches,id',
-            'position_id'  => 'required|exists:positions,id',
-            'role'         => ['required', Rule::enum(Role::class)],
+            'name'            => 'required|string|max:255',
+            'email'           => 'required|email|max:255|unique:users',
+            'phone'           => 'nullable|string|max:20',
+            'password'        => 'required|string|min:8|confirmed',
+            'branch_ids'      => 'required|array|min:1',
+            'branch_ids.*'    => 'exists:branches,id',
+            'position_id'     => 'required|exists:positions,id',
+            'role'            => ['required', Rule::enum(Role::class)],
+            'employment_type' => ['required', Rule::enum(EmploymentType::class)],
+            'hired_at'        => 'nullable|date',
         ]);
 
         $user = User::create($data);
