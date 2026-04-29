@@ -12,41 +12,14 @@
     </div>
 
     <form method="POST" action="{{ route('users.store') }}"
-          x-data="{
-              role: '{{ old('role', '') }}',
-              positionId: '{{ old('position_id', '') }}',
-              selectedBranches: @js(array_map('intval', old('branch_ids', []))),
-              allBranchIds: @js($branches->pluck('id')->toArray()),
-              adminPositionId: {{ $adminPosition?->id ?? 'null' }},
+          x-data="userForm({
+              role:              '{{ old('role', '') }}',
+              positionId:        '{{ old('position_id', '') }}',
+              selectedBranches:  @js(array_map('intval', old('branch_ids', []))),
+              allBranchIds:      @js($branches->pluck('id')->toArray()),
+              adminPositionId:   {{ $adminPosition?->id ?? 'null' }},
               managerPositionId: {{ $managerPosition?->id ?? 'null' }},
-
-              setRole(newRole) {
-                  this.role = newRole;
-                  if (newRole === 'admin') {
-                      this.positionId = this.adminPositionId;
-                      this.selectedBranches = [...this.allBranchIds];
-                  } else if (newRole === 'manager') {
-                      this.positionId = this.managerPositionId;
-                  } else {
-                      this.positionId = '';
-                      if (this.selectedBranches.length > 1) {
-                          this.selectedBranches = [this.selectedBranches[0]];
-                      }
-                  }
-              },
-
-              isChecked(id) { return this.selectedBranches.includes(id); },
-
-              toggleBranch(id) {
-                  if (this.role === 'admin') return;
-                  if (this.role === 'employee') {
-                      this.selectedBranches = [id];
-                  } else {
-                      const idx = this.selectedBranches.indexOf(id);
-                      idx > -1 ? this.selectedBranches.splice(idx, 1) : this.selectedBranches.push(id);
-                  }
-              },
-          }">
+          })">
         @csrf
 
         <div class="flex flex-col gap-5 max-w-3xl">
